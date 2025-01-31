@@ -3,8 +3,8 @@ import pandas as pd
 import plotly.express as px
 
 # modificación de dataframe 
-df_ventas = pd.read_excel('C:/Users/alons/Downloads/KEYPROCESS_REPORTE_VENTA_20250102121000.xlsx')
-df_compras = pd.read_excel('C:/Users/alons/Downloads/KEYPROCESS_REPORTE_COMPRA_20250102121137.xlsx')
+df_ventas = pd.read_excel('KEYPROCESS_REPORTE_VENTA_20250102121000.xlsx')
+df_compras = pd.read_excel('KEYPROCESS_REPORTE_COMPRA_20250102121137.xlsx')
 df_selecc = df_compras.rename(columns={'RUT':'Rut','FECHA DOCUMENTO': 'Fecha de documento', 'TOTAL': 'Monto','NETO':'Neto','IVA':'Iva', 'RAZON SOCIAL': 'Razón social', 'FORMA DE PAGO': 'Forma de pago'})
 df_selecv = df_ventas.rename(columns={'RUT':'Rut','FECHA': 'Fecha de documento', 'TOTAL': 'Monto','NETO':'Neto','IVA':'Iva', 'RAZON SOCIAL': 'Razón social', 'FORMA DE PAGO': 'Forma de pago'})
 df_selecc['Tipo'] = 'Proveedores'
