@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 # modificación de dataframe 
-meses_dict = {"Enero": 1, "Febrero": 2, "Marzo": 3, "Abril": 4, "Mayo": 5, "Junio": 6,"Julio": 7, "Agosto": 8, "Septiembre": 9, "Octubre": 10, "Noviembre": 11, "Diciembre": 12}
+meses_dict = {1: "Enero", 2: "Febrero", 3: "Marzo", 4: "Abril", 5: "Mayo", 6: "Junio", 7: "Julio", 8: "Agosto", 9: "Septiembre", 10: "Octubre", 11: "Noviembre", 12: "Diciembre"}
 df_ventas = pd.read_excel('KEYPROCESS_REPORTE_VENTA_20250102121000.xlsx')
 df_compras = pd.read_excel('KEYPROCESS_REPORTE_COMPRA_20250102121137.xlsx')
 df_selecc = df_compras.rename(columns={'RUT':'Rut','FECHA DOCUMENTO': 'Fecha de documento', 'TOTAL': 'Monto','NETO':'Neto','IVA':'Iva', 'RAZON SOCIAL': 'Razón social', 'FORMA DE PAGO': 'Forma de pago'})
@@ -151,12 +151,6 @@ elif opcion == 'Detalle y Fuente de Datos':
         y=venta_acum['Monto'], 
         name='Venta diaria', 
         marker=dict(color='blue')  # Color para ventas
-    )
-    fig_acumulado_compras.add_bar(
-        x=compra_acum['Fecha de documento'], 
-        y=compra_acum['Monto'], 
-        name='Compra diaria', 
-        marker=dict(color='red')  # Color para ventas
     )
 
 # Mostrar el gráfico
