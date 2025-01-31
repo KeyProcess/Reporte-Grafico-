@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 # modificación de dataframe 
+mes_dict = {"Enero": 1, "Febrero": 2, "Marzo": 3, "Abril": 4, "Mayo": 5, "Junio": 6,"Julio": 7, "Agosto": 8, "Septiembre": 9, "Octubre": 10, "Noviembre": 11, "Diciembre": 12}
 df_ventas = pd.read_excel('KEYPROCESS_REPORTE_VENTA_20250102121000.xlsx')
 df_compras = pd.read_excel('KEYPROCESS_REPORTE_COMPRA_20250102121137.xlsx')
 df_selecc = df_compras.rename(columns={'RUT':'Rut','FECHA DOCUMENTO': 'Fecha de documento', 'TOTAL': 'Monto','NETO':'Neto','IVA':'Iva', 'RAZON SOCIAL': 'Razón social', 'FORMA DE PAGO': 'Forma de pago'})
@@ -20,12 +21,12 @@ df_selecc['Forma de pago'] = df_selecc['Forma de pago'].replace({'credito': 'cr�
 df_selecv['Forma de pago'] = df_selecv['Forma de pago'].fillna("No indica medio").str.strip().str.lower()
 df_selecv['Forma de pago'] = df_selecv['Forma de pago'].replace({'credito': 'crédito'})
 df_selecc['Año'] = df_selecc['Fecha de documento'].dt.year
-df_selecc['Mes'] = df_selecc['Fecha de documento'].dt.month_name(locale='es')
+df_selecc['Mes'] = df_selecc['Fecha de documento'].dt.month.map(meses_dict) 
 df_selecv['Año'] = df_selecv['Fecha de documento'].dt.year
-df_selecv['Mes'] = df_selecv['Fecha de documento'].dt.month_name(locale='es')
+df_selecv['Mes'] = df_selecv['Fecha de documento'].dt.month.map(meses_dict) 
 df = pd.concat([df_selecc, df_selecv], ignore_index=True)
 color_map = {'Clientes': 'blue', 'Proveedores': 'red'}
-#mes_dict = {"Enero": 1, "Febrero": 2, "Marzo": 3, "Abril": 4, "Mayo": 5, "Junio": 6,"Julio": 7, "Agosto": 8, "Septiembre": 9, "Octubre": 10, "Noviembre": 11, "Diciembre": 12}
+
 # configuración de filtros y página
 st.set_page_config(page_title="Reporte de Ventas y Compras", layout="wide")
 st.sidebar.title("Navegación")
