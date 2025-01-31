@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 # modificación de dataframe 
-mes_dict = {"Enero": 1, "Febrero": 2, "Marzo": 3, "Abril": 4, "Mayo": 5, "Junio": 6,"Julio": 7, "Agosto": 8, "Septiembre": 9, "Octubre": 10, "Noviembre": 11, "Diciembre": 12}
+meses_dict = {"Enero": 1, "Febrero": 2, "Marzo": 3, "Abril": 4, "Mayo": 5, "Junio": 6,"Julio": 7, "Agosto": 8, "Septiembre": 9, "Octubre": 10, "Noviembre": 11, "Diciembre": 12}
 df_ventas = pd.read_excel('KEYPROCESS_REPORTE_VENTA_20250102121000.xlsx')
 df_compras = pd.read_excel('KEYPROCESS_REPORTE_COMPRA_20250102121137.xlsx')
 df_selecc = df_compras.rename(columns={'RUT':'Rut','FECHA DOCUMENTO': 'Fecha de documento', 'TOTAL': 'Monto','NETO':'Neto','IVA':'Iva', 'RAZON SOCIAL': 'Razón social', 'FORMA DE PAGO': 'Forma de pago'})
