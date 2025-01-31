@@ -86,6 +86,7 @@ elif opcion == "Acumulado Mensual":
     compra_acum['Fecha de documento'] = compra_acum['Fecha de documento'].dt.to_timestamp(how='start')  # Primer día del mes
     venta_acum['Fecha de documento'] = venta_acum['Fecha de documento'].dt.to_timestamp(how='start')  # Primer día del mes
     fig_acumulado_compras = px.bar(compra_acum, x='Fecha de documento', y='Monto', labels={'x': 'Fecha Transacción', 'y': 'Monto Total (CLP)'}, barmode='group', title="Compras y Ventas Acumuladas Mensuales")
+    fig_acumulado_compras.add_bar(x=compra_acum['Fecha de documento'], y=compra_acum['Monto'], name='Compras Acumuladas', marker=dict(color='red'))
     fig_acumulado_compras.add_bar(x=venta_acum['Fecha de documento'], y=venta_acum['Monto'], name='Ventas Acumuladas', marker=dict(color='blue'))
     fig_acumulado_compras.add_scatter(x=compra_acum['Fecha de documento'], y=compra_acum['Monto'], mode='lines', name='Compras Acumuladas', line=dict(color='red'))
     fig_acumulado_compras.add_scatter(x=venta_acum['Fecha de documento'], y=venta_acum['Monto'], mode='lines', name='Ventas Acumuladas', line=dict(color='blue'))
