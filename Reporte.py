@@ -81,15 +81,9 @@ if opcion == "Resumen":
 elif opcion == "Acumulado Mensual":
     st.title("Análisis")
     st.write("Aquí encontrarás los gráficos y análisis.")
-    compra_acum = df[df['Tipo'] == 'Proveedores'].groupby(df['Fecha de documento'].dt.to_period('M'))['Monto'].sum().reset_index()
-    venta_acum = df[df['Tipo'] == 'Clientes'].groupby(df['Fecha de documento'].dt.to_period('M'))['Monto'].sum().reset_index()
-    compra_acum['Fecha de documento'] = compra_acum['Fecha de documento'].dt.to_timestamp(how='start')  # Primer día del mes
-    venta_acum['Fecha de documento'] = venta_acum['Fecha de documento'].dt.to_timestamp(how='start')  # Primer día del mes
-    fig_acumulado_compras = px.bar(compra_acum, x='Fecha de documento', y='Monto', labels={'x': 'Fecha Transacción', 'y': 'Monto Total (CLP)'}, barmode='group', title="Compras y Ventas Acumuladas Mensuales")
-    fig_acumulado_compras.add_bar(x=compra_acum['Fecha de documento'], y=compra_acum['Monto'], name='Compras Acumuladas', marker=dict(color='red'))
-    fig_acumulado_compras.add_bar(x=venta_acum['Fecha de documento'], y=venta_acum['Monto'], name='Ventas Acumuladas', marker=dict(color='blue'))
-    fig_acumulado_compras.add_scatter(x=compra_acum['Fecha de documento'], y=compra_acum['Monto'], mode='lines', name='Compras Acumuladas', line=dict(color='red'))
-    fig_acumulado_compras.add_scatter(x=venta_acum['Fecha de documento'], y=venta_acum['Monto'], mode='lines', name='Ventas Acumuladas', line=dict(color='blue'))
+    df_acum = df.groupby([df['Fecha de documento'].dt.to_period('M'), 'Categoría'])['Monto'].sum().reset_index()
+    df_acum['Fecha de documento'] = df_acum['Fecha de documento'].dt.to_timestamp(how='start')
+    fig_acumulado_compras = px.bar(df_acum, x='Fecha de documento', y='Monto', labels={'x': 'Fecha Transacción', 'y': 'Monto'},barmode='group',color='Categoría' ,title="Compras Acumuladas Mensuales")
     st.plotly_chart(fig_acumulado_compras, use_container_width=False)
     col7, col8, col9 = st.columns(3)
     col10, col11, col12 = st.columns(3)
