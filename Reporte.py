@@ -85,7 +85,7 @@ elif opcion == "Acumulado Mensual":
     venta_acum = df[df['Tipo'] == 'Clientes'].groupby(df['Fecha de documento'].dt.to_period('M'))['Monto'].sum().reset_index()
     compra_acum['Fecha de documento'] = compra_acum['Fecha de documento'].dt.to_timestamp(how='start')  # Primer día del mes
     venta_acum['Fecha de documento'] = venta_acum['Fecha de documento'].dt.to_timestamp(how='start')  # Primer día del mes
-    fig_acumulado_compras = px.line(compra_acum, x='Fecha de documento', y='Monto', labels={'x': 'Fecha Transacción', 'y': 'Monto'}, title="Compras Acumuladas Mensuales")
+    fig_acumulado_compras = px.bar(compra_acum, x='Fecha de documento', y='Monto', labels={'x': 'Fecha Transacción', 'y': 'Monto'}, barmode='group', title="Compras Acumuladas Mensuales")
     fig_acumulado_compras.add_scatter(x=compra_acum['Fecha de documento'], y=compra_acum['Monto'], mode='lines', name='Compras Acumuladas', line=dict(color='red'))
     fig_acumulado_compras.add_scatter(x=venta_acum['Fecha de documento'], y=venta_acum['Monto'], mode='lines', name='Ventas Acumuladas', line=dict(color='blue'))
     st.plotly_chart(fig_acumulado_compras, use_container_width=False)
@@ -129,30 +129,13 @@ elif opcion == "Acumulado Anual":
 
 elif opcion == 'Detalle y Fuente de Datos':
     st.title('')
-    compra_acum = df[df['Tipo'] == 'Proveedores'].groupby(df['Fecha de documento'].dt.to_period('M'))['Monto'].sum().reset_index()
-    venta_acum = df[df['Tipo'] == 'Clientes'].groupby(df['Fecha de documento'].dt.to_period('M'))['Monto'].sum().reset_index()
-
-# Convertir el periodo a fecha para que esté bien representado en el gráfico
-    compra_acum['Fecha de documento'] = compra_acum['Fecha de documento'].dt.to_timestamp(how='start')  # Primer día del mes
-    venta_acum['Fecha de documento'] = venta_acum['Fecha de documento'].dt.to_timestamp(how='start')  # Primer día del mes
-
+    compra_acum = df[df['Tipo'] == 'Proveedores']
+    venta_acum = df[df['Tipo'] == 'Clientes']
+    
 # Crear el gráfico de barras
-    fig_acumulado_compras = px.bar(
-        compra_acum, 
-        x='Fecha de documento', 
-        y='Monto', 
-        labels={'x': 'Fecha Transacción', 'y': 'Monto Total (CLP)'}, 
-        title="Compras y Ventas Acumuladas Mensuales",
-        color_discrete_sequence=['red'],  # Color para compras
-        barmode='group',  # Modo de barras agrupadas
-    )
-    fig_acumulado_compras.add_bar(
-        x=venta_acum['Fecha de documento'], 
-        y=venta_acum['Monto'], 
-        name='Venta diaria', 
-        marker=dict(color='blue')  # Color para ventas
-    )
-
+    fig_acumulado_compras = px.bar(compra_acum, x='Fecha de documento', y='Monto', labels={'x': 'Fecha Transacción', 'y': 'Monto Total (CLP)'}, title="Compras y Ventas Acumuladas Mensuales", color_discrete_sequence=['red'], barmode='group')
+    fig_acumulado_compras.add_bar(x=venta_acum['Fecha de documento'], y=venta_acum['Monto'], name='Venta diaria', marker=dict(color='blue'))
+    fig_acumulado_compras.add_bar(x=compra_acum['Fecha de documento'], y=compra_acum['Monto'], name='Compra diaria', marker=dict(color='red'))
 # Mostrar el gráfico
     st.plotly_chart(fig_acumulado_compras, use_container_width=False)
     st.write("Facturas de venta")
