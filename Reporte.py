@@ -57,7 +57,7 @@ df = filtrar_datos(df)
 # Graficos e indicadores
 if opcion == "Resumen":
     st.title("Resumen de Indicadores globales")
-    st.write("Aquí puedes ver el contenido de la pestaña de inicio.")
+    st.write("Aquí se encuentran un acumulado de todos los años en la base de datos, para ver un año en específico aplique un filtro de la columna de la izquierda")
     col0, col01 = st.columns(2)
     col0.metric("Ventas Totales Bruto (CLP)", f"{df[df['Tipo']=='Clientes']['Monto'].sum():,.0f}")
     col01.metric("Compras Totales Bruto (CLP)", f"{df[df['Tipo']=='Proveedores']['Monto'].sum():,.0f}")
@@ -79,8 +79,7 @@ if opcion == "Resumen":
     col6.plotly_chart(px.pie(df[df['Categoría']=='Compras'], names='Forma de pago', values='Monto', title="Distribución por Forma de Pago (Compras)"), use_container_width=False)
 
 elif opcion == "Acumulado Mensual":
-    st.title("Análisis")
-    st.write("Aquí encontrarás los gráficos y análisis.")
+    st.title("Acumulado Mensual")
     df_acum = df.groupby([df['Fecha de documento'].dt.to_period('M'), 'Categoría'])['Monto'].sum().reset_index()
     df_acum['Fecha de documento'] = df_acum['Fecha de documento'].dt.to_timestamp(how='start')
     fig_acumulado_compras = px.bar(df_acum, x='Fecha de documento', y='Monto', labels={'x': 'Fecha Transacción', 'y': 'Monto'},barmode='group',color='Categoría' ,title="Compras Acumuladas Mensuales")
@@ -95,8 +94,7 @@ elif opcion == "Acumulado Mensual":
         col.plotly_chart(fig, use_container_width=False)
 
 elif opcion == "Acumulado Anual":
-    st.title("Datos")
-    st.write("Aquí puedes cargar y explorar tus datos.")
+    st.title("Acumulado Anual")
     df_año = df.groupby(['Año', 'Categoría'])['Monto'].sum().reset_index()
     fig = px.bar(df_año, x='Año', y='Monto', color='Categoría', barmode='group', labels={'Año': 'Año', 'Monto': 'Monto Total (CLP)'}, title="Comparación Anual")
     st.plotly_chart(fig, use_container_width=False)
