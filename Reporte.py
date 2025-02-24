@@ -57,7 +57,7 @@ df = filtrar_datos(df)
 # Graficos e indicadores
 if opcion == "Resumen":
     st.title("Resumen de Indicadores globales")
-    st.write("Aquí se encuentran un acumulado de todos los años en la base de datos, para ver un año en específico aplique un filtro de la columna de la izquierda")
+    st.write("Aquí se encuentra el acumulado de todos los años en la base de datos, para ver un año en específico aplique un filtro de la columna de la izquierda.")
     col0, col01 = st.columns(2)
     col0.metric("Ventas Totales Bruto (CLP)", f"{df[df['Tipo']=='Clientes']['Monto'].sum():,.0f}")
     col01.metric("Compras Totales Bruto (CLP)", f"{df[df['Tipo']=='Proveedores']['Monto'].sum():,.0f}")
