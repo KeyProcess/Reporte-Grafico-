@@ -127,9 +127,9 @@ elif opcion == 'Detalle y Fuente de Datos':
     venta_acum = df[df['Tipo'] == 'Clientes']
     
 # Crear el gráfico de barras
-    fig_acumulado_compras = px.bar(compra_acum, x='Fecha de documento', y='Monto', labels={'x': 'Fecha Transacción', 'y': 'Monto Total (CLP)'}, title="Compras y Ventas Acumuladas Mensuales", color_discrete_sequence=['red'], barmode='group')
-    fig_acumulado_compras.add_bar(x=venta_acum['Fecha de documento'], y=venta_acum['Monto'], name='Venta diaria', marker=dict(color='blue'))
-    fig_acumulado_compras.add_bar(x=compra_acum['Fecha de documento'], y=compra_acum['Monto'], name='Compra diaria', marker=dict(color='red'))
+#    fig_acumulado_compras = px.bar(compra_acum, x='Fecha de documento', y='Monto', labels={'x': 'Fecha Transacción', 'y': 'Monto Total (CLP)'}, title="Compras y Ventas Acumuladas Mensuales", color_discrete_sequence=['red'], barmode='group')
+#    fig_acumulado_compras.add_bar(x=venta_acum['Fecha de documento'], y=venta_acum['Monto'], name='Venta diaria', marker=dict(color='blue'))
+#    fig_acumulado_compras.add_bar(x=compra_acum['Fecha de documento'], y=compra_acum['Monto'], name='Compra diaria', marker=dict(color='red'))
 # Mostrar el gráfico
     st.plotly_chart(fig_acumulado_compras, use_container_width=False)
     st.write("Facturas de venta")
