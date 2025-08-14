@@ -4,8 +4,8 @@ import plotly.express as px
 
 # modificación de dataframe 
 meses_dict = {1: "Enero", 2: "Febrero", 3: "Marzo", 4: "Abril", 5: "Mayo", 6: "Junio", 7: "Julio", 8: "Agosto", 9: "Septiembre", 10: "Octubre", 11: "Noviembre", 12: "Diciembre"}
-df_ventas = pd.read_excel('KEYPROCESS_REPORTE_VENTAS_202506.xlsx')
-df_compras = pd.read_excel('KEYPROCESS_REPORTE_COMPRAS_202506.xlsx')
+df_ventas = pd.read_excel('KEYPROCESS_REPORTE_VENTAS_202508.xlsx')
+df_compras = pd.read_excel('KEYPROCESS_REPORTE_COMPRAS_202508.xlsx')
 df_selecc = df_compras.rename(columns={'RUT':'Rut','FECHA DOCUMENTO': 'Fecha de documento', 'TOTAL': 'Monto','NETO':'Neto','IVA':'Iva', 'RAZON SOCIAL': 'Razón social', 'FORMA DE PAGO': 'Forma de pago'})
 df_selecv = df_ventas.rename(columns={'RUT':'Rut','FECHA': 'Fecha de documento', 'TOTAL': 'Monto','NETO':'Neto','IVA':'Iva', 'RAZON SOCIAL': 'Razón social', 'FORMA DE PAGO': 'Forma de pago'})
 df_selecc['Tipo'] = 'Proveedores'
@@ -137,3 +137,4 @@ elif opcion == 'Detalle y Fuente de Datos':
     st.write("Facturas de compra")
     st.dataframe(df[df['Categoría']=='Compras'])
     
+
